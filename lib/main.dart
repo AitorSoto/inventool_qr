@@ -1,10 +1,8 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gal/gal.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:ui' as ui;
 
 void main() {
@@ -43,7 +41,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Generate QR Code'),
+        title: const Text('Generador QRs'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -53,7 +51,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
             TextField(
               controller: idController,
               decoration: const InputDecoration(
-                labelText: 'Tool ID',
+                labelText: 'Id de la herramienta',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -61,7 +59,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
-                labelText: 'Tool Name',
+                labelText: 'Nombre de la herramienta',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -74,7 +72,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                       '{"id": "${idController.text}", "name": "${nameController.text}"}';
                 });
               },
-              child: const Text('Generate QR Code'),
+              child: const Text('Generar codigo QR'),
             ),
             const SizedBox(height: 20),
             qrData.isNotEmpty
@@ -91,7 +89,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                           errorStateBuilder: (cxt, err) {
                             return const Center(
                               child: Text(
-                                'Uh oh! Something went wrong...',
+                                'Vaya... Algo salió mal al generar el código QR.',
                                 textAlign: TextAlign.center,
                               ),
                             );
@@ -110,7 +108,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: qrData.isNotEmpty ? _saveQRToGallery : null,
-              child: const Text('Save to Gallery'),
+              child: const Text('Guardar en la galería'),
             ),
           ],
         ),
@@ -136,12 +134,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
 
         // Muestra un mensaje de éxito al usuario.
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('QR Code saved to gallery!')));
+            const SnackBar(content: Text('Código QR guardado en la galería')));
       }
     } catch (e) {
       print('Error saving QR Code: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to save QR Code')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Algo ha salido mal. Inténtalo de nuevo.')));
     }
   }
 }
